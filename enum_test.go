@@ -15,6 +15,19 @@ func TestNewString(t *testing.T) {
 	}
 }
 
+func TestNewStringTag(t *testing.T) {
+	v := New[struct {
+		A string `enum:"a"`
+		B string
+	}]()
+	if v.A != "a" {
+		t.FailNow()
+	}
+	if v.B != "B" {
+		t.FailNow()
+	}
+}
+
 func TestNewInteger(t *testing.T) {
 	v := New[struct {
 		Zero int64
@@ -24,6 +37,19 @@ func TestNewInteger(t *testing.T) {
 		t.FailNow()
 	}
 	if v.One != 1 {
+		t.FailNow()
+	}
+}
+
+func TestNewIntegerTag(t *testing.T) {
+	v := New[struct {
+		Zero int64 `enum:"1"`
+		One  int64
+	}]()
+	if v.Zero != 1 {
+		t.FailNow()
+	}
+	if v.One != 2 {
 		t.FailNow()
 	}
 }
